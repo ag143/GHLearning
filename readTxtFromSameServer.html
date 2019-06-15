@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<div id="page-wrapper" class="collapsible">
+Path: <input type="text" id=inputFile name="fname" value="C:\\Users\\I075925\\Downloads\\oneminutedata-20190528T024630Z-001\\oneminutedata\\2019\\2019\\Result_ACCtxt.txt"><br>
+
+	<input type="file" id="file-id" name="file_name" onchange="scan();">
+	<input type="text" name="file_path" id="file-path">
+	<script>
+
+function scan(){
+ var xml = new XMLHttpRequest(); 
+xml.open("GET",".\\Result_ACCtxt.txt",true); 
+xml.onreadystatechange = function(){ 
+   if(xml.state === 200 && xml.readyState === 4){ 
+      var text = xml.response; //this variable will hold the text file content. 
+   } 
+}
+xml.send();
+}
+	</script>
+	<script>
+	</script>
+</body>
+</html>
