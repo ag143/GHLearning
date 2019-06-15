@@ -9,7 +9,7 @@
 
 function scan(){
 
-
+ var lineoutput
  var f = new XMLHttpRequest();
     f.open("GET", "Result_ACCtxt.txt", false);
     f.onreadystatechange = function ()
@@ -22,6 +22,11 @@ function scan(){
                 alert(res);
 		    console.log(res);
 		 
+		   lineoutput = output.split("\n");
+					for (var x=0;x<lineoutput.length;x++)
+					{
+					console.log("output-->"+lineoutput[x]);
+					}
             }
         }
     }
