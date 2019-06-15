@@ -10,6 +10,13 @@
 function scan(){
  var o = [], h = [], l = [], c=[], d=[], t=[], s=[], RSIchange = [], RSIGain = [], RSILoss = [],RSIAvgGain = [], RSIAvgLoss = [], RSIRS =  [],RSIRSI =[],RSI14DAYTRIAL = [];
  var lineoutput,  details;
+var transactions=[],transactionStart=[],transactionEnd=[],transactionID=[], TransactionProfitOrLoss=0,transactionIterator=0;
+var EMA1=[],EMA2=[], PreviousEMA1=[],PreviousEMA2=[],MACD=[],SignalLine=[];
+var option = "";
+var investment = 100000.00;
+var isRSIchecked="false",isMACDChecked="false",isEMA1Checked="false",isEMA2Checked="false",isBuydone="false";
+var output1="";
+	
  var f = new XMLHttpRequest();
     f.open("GET", "Result_ACCtxt.txt", false);
     f.onreadystatechange = function ()
@@ -39,13 +46,111 @@ function scan(){
 		    for (var y=0;y<s.length;y++)
 			  console.log("----->"+s[y]+","+d[y]+","+t[y]+","+o[y]+","+h[y]+","+l[y]+","+c[y]);
 
-		    
+		    option = "RSI";
+					nMovingAverage = 2;
+					nMovingAverage1 =12;
+					nMovingAverage2 =26;
+					
+					//initial configuration
+					for(var x=0;x<c.length;x++)
+					{
+					PreviousEMA1[x] = 0.0;
+					PreviousEMA2[x] = 0.0;
+					SignalLine [x]=0.0;
+					RSIchange[x]=0.0;
+					
+					
+
+					if(x>0)
+					RSIchange[x] = c[x]-c[x-1];
+					else
+					RSIchange[x] = 0.0;
+					
+					if(parseFloat(RSIchange[x]) > 0.0)
+					RSIGain[x] = RSIchange[x];
+					else 
+					RSIGain[x] = 0.0;
+					if(parseFloat(RSIchange[x]) < 0.0)
+					RSILoss[x] = RSIchange[x];
+					else
+					RSILoss[x] = 0.0;
+					
+					console.log("close:"+c[y]+"--->RSI change:"+RSIchange[x]+"--- >RSI GAIN:"+RSIGain[x]+"-- >RSI LOSS:"+RSILoss[x] );
+					if(x<14)
+					{
+					RSIAvgGain[x]=0.0;
+					RSIAvgLoss[x]=0.0;
+					RSIRS[x]=0.0;
+					}
+					RSIAvgLoss[x]=0.0;
+					RSIAvgGain[x]=0.0;
+					if(x==14)
+					  {
+						for(var y =0;y<14;y++){
+							RSIAvgGain[x]= parseFloat(RSIAvgGain[x]) + parseFloat(RSIGain[y]);
+							RSIAvgLoss[x]= parseFloat(RSIAvgLoss[x]) + parseFloat(RSILoss[y]);
+							}
+						RSIAvgGain[x] = parseFloat(RSIAvgGain[x])/14;
+						RSIAvgLoss[x] = parseFloat(RSIAvgLoss[x])/14;
+						if(RSIAvgLoss[x]<0)
+						RSIAvgLoss[x]= -RSIAvgLoss[x];
+						RSIRS[x]=parseFloat(RSIAvgGain[x])/parseFloat(RSIAvgLoss[x]);
+						RSIRSI[x]=100- 100/(1+RSIRS[x]);
+						console.log("RSI Indicator----------------------------------------------------------- >"+parseFloat(RSIRSI[x]));
+					  }
+					if(x>14)
+					  {
+						RSIAvgGain[x]= (parseFloat(RSIAvgGain[x-1])*13 +parseFloat(RSIGain[x]))/14;
+						RSIAvgLoss[x]= (parseFloat(RSIAvgLoss[x-1])*13 +parseFloat(RSILoss[x]))/14;
+						if(RSIAvgLoss[x]<0)
+						RSIAvgLoss[x]= -RSIAvgLoss[x];
+						RSIRS[x]=parseFloat(RSIAvgGain[x])/parseFloat(RSIAvgLoss[x]);
+						RSIRSI[x]=100- 100/(1+RSIRS[x]);
+						console.log("RSI Indicator------------------------------------------------------------------------------------------ >"+parseFloat(RSIRSI[x]));
+					  }
+					  
+					  
+					}
 		    
             }
         }
     }
     f.send(null);
+	
 }
+		
+function fSMA(c,y,n){
+			var total =0.0; 
+			
+		      if(y>=n)
+		      for(var i=n;i>0;i--)
+		      total = parseFloat(total) + parseFloat(c[y-i]);
+		 
+		      return total/n;
+		
+		
+		    }
+			function fEMA(c,n,PreviousEMA){
+			  for(var x=0;x<c.length;x++)
+					{
+					if(x==n)
+					{
+					for(var y=n;y>0;y--)
+					{
+					PreviousEMA[n]=parseFloat(PreviousEMA[n])+parseFloat(c[y]);
+					
+					}
+					PreviousEMA[n]=PreviousEMA[n]/n;
+					}
+					if(x>n)
+					{
+					var k= 2/ (parseInt(n)+1);
+					PreviousEMA[x]=c[x]*k + PreviousEMA[x-1]*(1-k);
+					
+					}
+					}
+					return PreviousEMA;
+			}
 
 	</script>
 	<script>
