@@ -10,14 +10,20 @@ Path: <input type="text" id=inputFile name="fname" value="C:\\Users\\I075925\\Do
 	<script>
 
 function scan(){
- var xml = new XMLHttpRequest(); 
-xml.open("GET",".\\Result_ACCtxt.txt",true); 
-xml.onreadystatechange = function(){ 
-   if(xml.state === 200 && xml.readyState === 4){ 
-      var text = xml.response; //this variable will hold the text file content. 
-   } 
-}
-xml.send();
+ var f = new XMLHttpRequest();
+    f.open("GET", "Result_ACCtxt.txt", false);
+    f.onreadystatechange = function ()
+    {
+        if(f.readyState === 4)
+        {
+            if(f.status === 200 || f.status == 0)
+            {
+                var res= f.responseText;
+                alert(res);
+            }
+        }
+    }
+    f.send(null);
 }
 	</script>
 	<script>
