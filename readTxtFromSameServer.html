@@ -13,7 +13,7 @@
 function scan(){
  var o = [], h = [], l = [], c=[], d=[], t=[], s=[], RSIchange = [], RSIGain = [], RSILoss = [],RSIAvgGain = [], RSIAvgLoss = [], RSIRS =  [],RSIRSI =[],RSI14DAYTRIAL = [];
  var lineoutput,  details;
-var transactions=[],transactionStart=[],transactionEnd=[],transactionID=[], TransactionProfitOrLoss=0,transactionIterator=0;
+var transactions=[],transactionStart=[],transactionEnd=[],transactionID=[], TransactionProfitOrLoss=[],TotalProfitAndLoss=0,transactionIterator=0;
 var EMA1=[],EMA2=[], PreviousEMA1=[],PreviousEMA2=[],MACD=[],SignalLine=[];
 var option = "";
 var investment = 100000.00;
@@ -203,19 +203,23 @@ var output1="";
 					for (var z=1;z<transactionIterator+1;z++){
 					
 					if(transactionStart[z]>transactionEnd[z])
-						TransactionProfitOrLoss = (transactionEnd[z]- transactionStart[z]);
+						TransactionProfitOrLoss[z] = (transactionEnd[z]- transactionStart[z]);
 					else
-						TransactionProfitOrLoss = (transactionEnd[z]-transactionStart[z]);
+						TransactionProfitOrLoss[z] = (transactionEnd[z]-transactionStart[z]);
 					
 					
 					output1= output1 +"<tr>"+
 					
 					"<td>"+transactionStart[z]+
 					"<td>"+transactionEnd[z]+
-					"<td>"+TransactionProfitOrLoss+
+					"<td>"+TransactionProfitOrLoss[z]+
 					
 					"</tr>";
 					}
+					output1= output1+ "<tr>"+
+					"<td colspan=2>Total Profit or Loss<td>"+TotalProfitAndLoss+
+					 "</tr>";
+					
 					output1= output1 +"</table>";
 					
 					
