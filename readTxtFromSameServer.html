@@ -17,6 +17,7 @@ var transactions=[],transactionStart=[],transactionEnd=[],transactionID=[], Tran
 var EMA1=[],EMA2=[], PreviousEMA1=[],PreviousEMA2=[],MACD=[],SignalLine=[];
 var option = "";
 var investment = 100000.00;
+var initialInvestment = investment;
 var isRSIchecked="false",isMACDChecked="false",isEMA1Checked="false",isEMA2Checked="false",isBuydone="false";
 var output1="";
 	
@@ -217,6 +218,9 @@ var output1="";
 					"</tr>";
 					}
 					output1= output1+ "<tr>"+
+					"<td><b>Initial Investment</b><td>"+initialInvestment+"<td><b>InvestmentLeft</b><td>"+investment
+					 "</tr>";
+		   			 output1= output1+ "<tr>"+
 					"<td colspan=3><b>Total Profit or Loss</b><td>"+TotalProfitAndLoss+
 					 "</tr>";
 					
