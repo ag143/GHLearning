@@ -196,7 +196,7 @@ var output1="";
 					
 					output1= output1 +"<table border=5>";
 					
-					output1= output1 +"<tr><th>Stock Bought<th>Stock Sold<th> Profit or Loss</tr>";
+					output1= output1 +"<tr><th>slno<th>Stock Bought<th>Stock Sold<th> Profit or Loss</tr>";
 					
 					
 					
@@ -209,7 +209,7 @@ var output1="";
 					
 					TotalProfitAndLoss=TotalProfitAndLoss+TransactionProfitOrLoss[z];
 					output1= output1 +"<tr>"+
-					
+					"<td>"+z+
 					"<td>"+transactionStart[z]+
 					"<td>"+transactionEnd[z]+
 					"<td>"+TransactionProfitOrLoss[z]+
@@ -217,7 +217,7 @@ var output1="";
 					"</tr>";
 					}
 					output1= output1+ "<tr>"+
-					"<td colspan=2><b>Total Profit or Loss</b><td>"+TotalProfitAndLoss+
+					"<td colspan=3><b>Total Profit or Loss</b><td>"+TotalProfitAndLoss+
 					 "</tr>";
 					
 					output1= output1 +"</table>";
