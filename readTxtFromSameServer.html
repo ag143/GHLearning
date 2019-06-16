@@ -207,7 +207,7 @@ var output1="";
 					else
 						TransactionProfitOrLoss[z] = (transactionEnd[z]-transactionStart[z]);
 					
-					
+					TotalProfitAndLoss=TotalProfitAndLoss+TransactionProfitOrLoss[z];
 					output1= output1 +"<tr>"+
 					
 					"<td>"+transactionStart[z]+
@@ -217,7 +217,7 @@ var output1="";
 					"</tr>";
 					}
 					output1= output1+ "<tr>"+
-					"<td colspan=2>Total Profit or Loss<td>"+TotalProfitAndLoss+
+					"<td colspan=2><b>Total Profit or Loss</b><td>"+TotalProfitAndLoss+
 					 "</tr>";
 					
 					output1= output1 +"</table>";
